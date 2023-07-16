@@ -13,6 +13,8 @@
 #include "gpaddon.h"
 #include "gamepad.h"
 #include "storagemanager.h"
+#include <deque>
+#include <array>
 
 #ifndef HAS_I2C_DISPLAY
 #define HAS_I2C_DISPLAY -1
@@ -150,9 +152,9 @@ private:
 	void drawWasdBox(int startX, int startY, int buttonRadius, int buttonPadding);
 	void drawArcadeStick(int startX, int startY, int buttonRadius, int buttonPadding);
 	void drawStatusBar(Gamepad*);
+	void drawHistory(Gamepad*); // input_history_addon
 	void drawText(int startX, int startY, std::string text);
 	void initMenu(char**);
-	//Adding my stuff here, remember to sort before PR
 	void drawDiamond(int cx, int cy, int size, uint8_t colour, uint8_t filled);
 	void drawUDLR(int startX, int startY, int buttonRadius, int buttonPadding);
 	void drawMAMEA(int startX, int startY, int buttonSize, int buttonPadding);
@@ -198,6 +200,8 @@ private:
 	std::string statusBar;
 	Gamepad* gamepad;
 	Gamepad* pGamepad;
+	std::deque<std::string> history; // input_history_addon
+	std::array<bool, 17> last; // input_history_addon
 	bool configMode;
 
 	enum DisplayMode {
